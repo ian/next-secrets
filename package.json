@@ -1,0 +1,29 @@
+{
+  "name": "next-secrets",
+  "author": "Ian Hunter",
+  "license": "MIT",
+  "version": "0.0.2",
+  "description": "",
+  "keywords": [
+    "react"
+  ],
+  "main": "dist/index.js",
+  "scripts": {
+    "clean": "rm -rf ./dist",
+    "build": "yarn build:lib && yarn build:ui",
+    "build:lib": "tsc",
+    "build:ui": "(cd ./ui && yarn build)",
+    "dist": "yarn build && cp -r ./ui/build ./dist/ui",
+    "release": "yarn clean && yarn build && npm publish"
+  },
+  "devDependencies": {
+    "@types/node": "^16.9.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "next": "^11.1.2",
+    "redis": "^3.1.2"
+  }
+}
