@@ -10,10 +10,9 @@
   "main": "dist/index.js",
   "scripts": {
     "clean": "rm -rf ./dist",
-    "build": "yarn build:lib && yarn build:ui",
-    "build:lib": "tsc",
-    "build:ui": "(cd ./ui && yarn build)",
-    "dist": "yarn build && cp -r ./ui/build ./dist/ui",
+    "build": "tsc",
+    "dist": "yarn clean && yarn build && yarn dist:ui",
+    "dist:ui": "(cd ./ui && yarn clean && yarn build && yarn dist) && cp ui/dist/index.html dist/ui.html",
     "release": "yarn clean && yarn build && npm publish"
   },
   "devDependencies": {
