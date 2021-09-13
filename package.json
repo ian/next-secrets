@@ -13,7 +13,7 @@
     "build": "tsc",
     "dist": "yarn clean && yarn build && yarn dist:ui",
     "dist:ui": "(cd ./ui && yarn clean && yarn build && yarn dist) && cp ui/dist/index.html dist/ui.html",
-    "release": "yarn clean && yarn build && npm publish"
+    "release": "yarn dist && npm publish"
   },
   "devDependencies": {
     "@types/node": "^16.9.1",
