@@ -41,7 +41,7 @@ NEXTSECRETS_ENV=preview
 2. process.env.VERCEL_ENV 
 3. process.env.NODE_ENV
 
-4. Add the endpoint for next-secrets:
+### 4. Add the endpoint for next-secrets:
 
 ```
 ./{nextroot}
@@ -59,6 +59,22 @@ And add this to the file:
 
 import { handler } from "next-secrets"
 export default handler
+```
+
+### 5. Wrap any API endpoints that you need access to these vars:
+
+```
+# /pages/api/myendpoint.ts
+
+import { withSecrets } from "next-secrets"
+
+export default withSecrets((secrets) => {
+  return async (req, res) => {
+
+    // ... do something with secrets.xyz
+
+  }
+})
 ```
 
 And that's it, start your next server and head over to [http://localhost:3000/api/secrets](http://localhost:3000/api/secrets) to configure your environments.
