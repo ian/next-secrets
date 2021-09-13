@@ -3,7 +3,7 @@ import { get, set, list } from "./redis"
 import { encrypt, decrypt } from "./encryption"
 
 export const env =
-  process.env.NEXTSECRETS_ENV || process.env.VERCEL_ENV || process.env.NODE_ENV
+  process.env.NEXTSECRETS_ENV || process.env.VERCEL_ENV || process.env.NODE_ENV || "development"
 
 if (!env) {
   throw new Error(
