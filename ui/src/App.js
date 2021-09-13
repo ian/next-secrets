@@ -18,7 +18,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    getEnv(selectedEnv).then(setVars)
+    if (selectedEnv) getEnv(selectedEnv).then(setVars)
   }, [selectedEnv])
 
   const handleChange = (newVars) => {

@@ -72,11 +72,13 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     console.log({nextsecrets})
     const filename = Array(nextsecrets).join('/') === "ui" ? "index.html" : nextsecrets
     // res.send(file)
-    const baseDir = path.resolve('./node_modules/next-secrets/dist/ui/')
-    const file = fs.readFileSync(baseDir + "/" + filename)
+    const baseDir = path.resolve('./node_modules/next-secrets/dist/')
+    const file = fs.readFileSync(baseDir + "/ui.html")
     
-    console.log({ nextsecrets, baseDir, file })
-    res.send(file)
+    console.log("HERE")
+    res.setHeader("Content-Type", "text/html")
+    res.send(file.toString())
+    
   } else if (req.method === "POST") {
     if (req.query.env) {
       const config = await getConfig(req.query.env)
