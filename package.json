@@ -12,8 +12,7 @@
     "clean": "rm -rf ./dist",
     "build": "tsc",
     "dist": "yarn clean && yarn build && yarn dist:ui",
-    "dist:ui": "(cd ./ui && yarn clean && yarn build && yarn dist) && cp ui/dist/index.html dist/ui.html",
-    "release": "yarn dist && npm publish"
+    "dist:ui": "(cd ./ui && yarn clean && yarn build && yarn dist) && cp ui/dist/index.html dist/ui.html"
   },
   "devDependencies": {
     "@types/node": "^16.9.1",
