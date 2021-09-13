@@ -11,14 +11,8 @@ export function withSecrets(inner, keys = null) {
   return async (req, res) => {
     let start_time = new Date().getTime()
 
-    let secrets = await getCache().catch(console.error)
-    if (!secrets) {
-      // Load and write
-      secrets = await getConfig(env)
-      await setCache(secrets)
-    }
-
-    console.log("[next-secrets] Time elapsed:", new Date().getTime() - start_time, "ms")
+    const secrets = await getCache().catch(console.error)
+    if (process.env.NEXTSECRETS_DEBUG) console.log("[next-secrets] Time elapsed:", new Date().getTime() - start_time, "ms")
     req.secrets = secrets
 
     return inner(secrets)(req, res)
