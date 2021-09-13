@@ -30,7 +30,7 @@ NEXTSECRETS_REDIS_URL=...your redis url...
 NEXTSECRETS_TOKEN=...make up a secret to use...
 ```
 
-If you want to force next-secrets to use a specific env, set the env var:
+If you want to force `next-secrets` to use a specific env, set the env var:
 
 ```
 NEXTSECRETS_ENV=preview
@@ -41,25 +41,9 @@ NEXTSECRETS_ENV=preview
 2. process.env.VERCEL_ENV 
 3. process.env.NODE_ENV
 
-### 4. Add the endpoint for next-secrets:
+### 4. Run `secrets cache`
 
-```
-./{nextroot}
-│
-└── pages
-    ├── api
-    │   └── secrets.tsx (or secrets.jsx)
-    └── ...
-```
-
-And add this to the file:
-
-```
-# /pages/api/secrets.tsx
-
-import { handler } from "next-secrets"
-export default handler
-```
+This will persist your config for next to use, if you don't run this you'll receive an error.
 
 ### 5. Wrap any API endpoints that you need access to these vars:
 
@@ -77,19 +61,23 @@ export default withSecrets((secrets) => {
 })
 ```
 
-And that's it, start your next server and head over to [http://localhost:3000/api/secrets](http://localhost:3000/api/secrets) to configure your environments.
+And that's it! Your endpoints will have access to the shared secrets.
+## Admin Interface
+
+next-secrets comes with an admin interface for controlling `development`, `preview`, and `production` environments.
 
 ![UI](https://raw.githubusercontent.com/ian/next-secrets/main/docs/ui.png)
 
-> Note: This page is only available in development mode
+To install, first add a file `secrets.ts` (or secrets.js) in `pages/api`:
 
-## Architecture
+```
+# /pages/api/secrets.tsx
 
-Under the hood, next-secrets uses Redis to store secrets. We chose Redis because of it's speed and stability. 
+import { handler } from "next-secrets"
+export default handler
+```
 
-Based on my limited testing this adds about 15ms to the request overhead. 
-
-> @todo - More testing needed.
+Then, start your next server and head over to [http://localhost:3000/api/secrets](http://localhost:3000/api/secrets) to configure your environments.
 
 
-
+_Note: This page is only available in `development` env_
