@@ -60,25 +60,12 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return
   }
 
-  // res.setHeader("Access-Control-Allow-Origin", "*")
-  // res.setHeader(
-  //   "Access-Control-Allow-Headers",
-  //   "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  // )
-  // res.setHeader("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET")
-  
   if (req.method === "GET") {
-    const { nextsecrets } = req.query
-    console.log({nextsecrets})
-    const filename = Array(nextsecrets).join('/') === "ui" ? "index.html" : nextsecrets
-    // res.send(file)
     const baseDir = path.resolve('./node_modules/next-secrets/dist/')
     const file = fs.readFileSync(baseDir + "/ui.html")
     
-    console.log("HERE")
     res.setHeader("Content-Type", "text/html")
     res.send(file.toString())
-    
   } else if (req.method === "POST") {
     if (req.query.env) {
       const config = await getConfig(req.query.env)
