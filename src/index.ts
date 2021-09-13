@@ -21,7 +21,6 @@ export function withSecrets(inner, keys = null) {
   return async (req, res) => {
     let start_time = new Date().getTime()
     const secrets = await getConfig(env).catch(console.error)
-
     console.log("[next-secrets] Time elapsed:", new Date().getTime() - start_time, "ms")
     req.secrets = secrets
 
@@ -78,7 +77,7 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       })
     }
   } else if (req.method === "PUT") {
-    await setConfig(req.query.env, req.body)
+    await setConfig(req.query.env, JSON.parse(req.body))
     res.send("OK")
   } else if (req.method === "OPTIONS") {
     res.send("OK")
