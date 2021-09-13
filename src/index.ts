@@ -1,3 +1,4 @@
+import { getCache, setCache } from "./cache"
 import { getConfig, env } from "./env"
 
 export * from "./env"
@@ -9,7 +10,14 @@ export function withSecrets(inner, keys = null) {
 
   return async (req, res) => {
     let start_time = new Date().getTime()
-    const secrets = await getConfig(env).catch(console.error)
+
+    let secrets = await getCache().catch(console.error)
+    if (!secrets) {
+      // Load and write
+      secrets = await getConfig(env)
+      await setCache(secrets)
+    }
+
     console.log("[next-secrets] Time elapsed:", new Date().getTime() - start_time, "ms")
     req.secrets = secrets
 
