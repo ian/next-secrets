@@ -44,19 +44,19 @@ function App() {
 }
 
 async function listEnvs() {
-  return fetch(`http://localhost:3000/api/secrets`, { method: "post" }).then(
+  return fetch(`/api/secrets`, { method: "post" }).then(
     (res) => res.json()
   )
 }
 
 async function getEnv(env) {
-  return fetch(`http://localhost:3000/api/secrets?env=` + env, {
+  return fetch(`/api/secrets?env=` + env, {
     method: "post",
   }).then((res) => res.json())
 }
 
 async function setEnv(env, vars) {
-  return fetch(`http://localhost:3000/api/secrets?env=` + env, {
+  return fetch(`/api/secrets?env=` + env, {
     method: "put",
     body: JSON.stringify(vars),
   }).then((res) => res.json())

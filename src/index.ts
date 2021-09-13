@@ -1,4 +1,7 @@
+import fs from 'fs'
+import path from 'path'
 import type { NextApiRequest, NextApiResponse } from "next"
+
 import { get, set, list } from "./redis"
 import { encrypt, decrypt } from "./encryption"
 
@@ -19,7 +22,7 @@ export function withSecrets(inner, keys = null) {
     let start_time = new Date().getTime()
     const secrets = await getConfig(env).catch(console.error)
 
-    console.log("Time elapsed:", new Date().getTime() - start_time, "ms")
+    console.log("[next-secrets] Time elapsed:", new Date().getTime() - start_time, "ms")
     req.secrets = secrets
 
     return inner(secrets)(req, res)
@@ -57,15 +60,23 @@ export const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return
   }
 
-  res.setHeader("Access-Control-Allow-Origin", "*")
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  )
-  res.setHeader("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET")
-
+  // res.setHeader("Access-Control-Allow-Origin", "*")
+  // res.setHeader(
+  //   "Access-Control-Allow-Headers",
+  //   "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  // )
+  // res.setHeader("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET")
+  
   if (req.method === "GET") {
-    res.send("OK")
+    const { nextsecrets } = req.query
+    console.log({nextsecrets})
+    const filename = Array(nextsecrets).join('/') === "ui" ? "index.html" : nextsecrets
+    // res.send(file)
+    const baseDir = path.resolve('./node_modules/next-secrets/dist/ui/')
+    const file = fs.readFileSync(baseDir + "/" + filename)
+    
+    console.log({ nextsecrets, baseDir, file })
+    res.send(file)
   } else if (req.method === "POST") {
     if (req.query.env) {
       const config = await getConfig(req.query.env)
