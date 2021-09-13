@@ -48,7 +48,6 @@ async function handleUpdate(req,res) {
   const json = JSON.parse(req.body)
   
   await setConfig(req.query.env, json)
-  await setCache(json)
 
   res.send("OK")
 }

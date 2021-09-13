@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-const filename = path.resolve('./.next/secrets')
+const filename = path.resolve('./.next/server/secrets')
 
 export async function getCache() {
   const file = fs.readFileSync(filename)
