@@ -2,6 +2,7 @@
   "name": "next-secrets",
   "author": "Ian Hunter",
   "license": "MIT",
+  "repository": "https://github.com/ian/next-secrets",
   "version": "0.0.7",
   "description": "",
   "keywords": [

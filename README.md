@@ -6,7 +6,7 @@ Extended secrets / env management for next serverless.
 
 If you've ever seen this message on Vercel, you'll know that there's a limitation on AWS Lambda that caps total env size at 4K.
 
-![Vercel Error](./docs/error-big.png)
+![Vercel Error](https://raw.githubusercontent.com/ian/next-secrets/main/docs/error-big.png)
 
 Vercel has a support article as a workaround which suggests an endpoint architecture to pull and load env vars.
 
@@ -79,7 +79,7 @@ export default withSecrets((secrets) => {
 
 And that's it, start your next server and head over to [http://localhost:3000/api/secrets](http://localhost:3000/api/secrets) to configure your environments.
 
-![UI](./docs/ui.png)
+![UI](https://raw.githubusercontent.com/ian/next-secrets/main/docs/ui.png)
 
 > Note: This page is only available in development mode
 
