@@ -1,9 +1,10 @@
 import fs from 'fs'
 import path from 'path'
+import { env } from "./env"
 
 // In dev, next will clear out the .next/server folder on builds.
 // On vercel, the only dir that's persisted during slugification is .next/server
-const filename = path.resolve(process.env.NODE_ENV === "development" ? "./.next" : "./.next/server/secrets")
+const filename = path.resolve(env === "development" ? "./.next" : "./.next/server/secrets")
 
 export async function getCache() {
   const exists = fs.existsSync(filename)
