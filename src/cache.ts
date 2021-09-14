@@ -17,6 +17,6 @@ export async function getCache() {
 } 
 
 export async function setCache(vars) {
-  if (!fs.existsSync("./.next")) fs.mkdirSync("./.next")
+  fs.promises.mkdir("./.next").catch(() => {})
   fs.writeFileSync(filename, JSON.stringify(vars))
 }
