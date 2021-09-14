@@ -4,7 +4,7 @@ import { env } from "./env"
 
 // In dev, next will clear out the .next/server folder on builds.
 // On vercel, the only dir that's persisted during slugification is .next/server
-const filename = path.resolve(env === "development" ? "./.next" : "./.next/server/secrets")
+const filename = path.resolve(env === "development" ? "./.next/secrets" : "./.next/server/secrets")
 
 export async function getCache() {
   const exists = fs.existsSync(filename)
@@ -17,6 +17,6 @@ export async function getCache() {
 } 
 
 export async function setCache(vars) {
-  fs.promises.mkdir("./.next").catch(() => {})
+  await fs.promises.mkdir("./.next").catch(() => {})
   fs.writeFileSync(filename, JSON.stringify(vars))
 }
