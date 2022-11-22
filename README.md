@@ -1,3 +1,5 @@
+> DEPRECATED - this repository is no longer necessary now that Vercel supports 64KB environments: https://vercel.com/changelog/16x-larger-environment-variable-storage-up-to-64kb
+
 # next-secrets
 
 Extended secrets / env management for next serverless.
